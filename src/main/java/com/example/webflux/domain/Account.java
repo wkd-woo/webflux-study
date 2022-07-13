@@ -15,7 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Account {
 
     @Id
-    private String id;
+    private ObjectId _id;
     private String owner;
     private Double value;
 

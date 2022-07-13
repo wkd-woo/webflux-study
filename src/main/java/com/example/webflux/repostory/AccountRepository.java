@@ -8,7 +8,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Repository
-public interface AccountRepository extends ReactiveMongoRepository<Account, String> {
+public interface AccountRepository extends ReactiveMongoRepository<Account, ObjectId>, CustomAccountRepository {
 
     Flux<Account> findAllByValue(Double value);
 

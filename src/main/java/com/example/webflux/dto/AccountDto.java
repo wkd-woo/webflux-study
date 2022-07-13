@@ -1,5 +1,6 @@
-package com.example.webflux.domain;
+package com.example.webflux.dto;
 
+import com.example.webflux.domain.Account;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;

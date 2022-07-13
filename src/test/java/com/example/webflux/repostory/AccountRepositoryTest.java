@@ -28,7 +28,7 @@ class AccountRepositoryTest {
                 .assertNext(account -> {
                     assertEquals("Jay", account.getOwner());
                     assertEquals(Double.valueOf(12.3), account.getValue());
-                    assertNotNull(account.getId());
+                    assertNotNull(account.get_id());
                 })
                 .expectComplete()
                 .verify();
@@ -44,8 +44,8 @@ class AccountRepositoryTest {
                 .create(accountMono)
                 .assertNext(account -> {
                     assertEquals("Bill", account.getOwner());
-                    assertEquals(Double.valueOf(12.3) , account.getValue());
-                    assertNotNull(account.getId());
+                    assertEquals(Double.valueOf(12.3), account.getValue());
+                    assertNotNull(account.get_id());
                 })
                 .expectComplete()
                 .verify();
@@ -57,7 +57,7 @@ class AccountRepositoryTest {
 
         StepVerifier
                 .create(accountMono)
-                .assertNext(account -> assertNotNull(account.getId()))
+                .assertNext(account -> assertNotNull(account.get_id()))
                 .expectComplete()
                 .verify();
     }

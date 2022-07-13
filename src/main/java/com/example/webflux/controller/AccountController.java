@@ -1,9 +1,10 @@
 package com.example.webflux.controller;
 
 import com.example.webflux.domain.Account;
-import com.example.webflux.domain.AccountDto;
+import com.example.webflux.dto.AccountDto;
 import com.example.webflux.repostory.AccountRepository;
 import lombok.RequiredArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,14 +20,14 @@ public class AccountController {
 
     @ResponseBody
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity addAccount(@RequestBody AccountDto account) {
-        accountRepository.save(account.toEntity());
+    public ResponseEntity addAccount(@RequestBody AccountDto accountDto) {
+        accountRepository.save(accountDto.toEntity());
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
     public Mono<Account> getAccountById(@PathVariable String id) {
-        return accountRepository.findById(id);
+        return accountRepository.findById(new ObjectId(id));
     }
 
     @GetMapping
@@ -34,8 +35,13 @@ public class AccountController {
         return accountRepository.findAll();
     }
 
-    @GetMapping("/{value}")
-    public Flux<Account> findAllByValue(@RequestBody Double value) {
-        return accountRepository.findAllByValue(value);
+    @GetMapping("/owner")
+    public Flux<Account> findAllByOwner(@RequestBody AccountDto accountDto) {
+        return accountRepository.findAllByOwner(accountDto.getOwner());
+    }
+
+    @GetMapping("/value")
+    public Flux<Account> findAllByValue(@RequestBody AccountDto accountDto) {
+        return accountRepository.findAllByValue(accountDto.getValue());
     }
 }
